@@ -1,0 +1,217 @@
+<html lang="en">
+
+<head>
+  <meta charset="utf-8"/>
+  <title>Quiz</title>
+
+  <style>
+
+    div img
+    {
+      display: inline;
+      padding: 30px 60px;
+
+    }
+
+    div#test
+    {
+      border:#5AB029
+      3px solid;
+      padding:10px 40px 40px 40px;
+      background-color:#E5FCE3;
+      width:95%;
+    }
+
+    div#title, div#t1
+    {
+      text-align: center;
+      font-size: 50px;
+    }
+
+    div#text
+    {
+      text-align: center;
+      font-size: 30px;
+    }
+
+    .button
+    {
+    width: 100%;
+    padding: 15px 25px;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    margin: 20px;
+    color: #fff;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+  }
+
+  .button:hover {background-color: #3e8e41}
+
+  .button:active
+  {
+    background-color: #3e8e41;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+  }
+
+  </style>
+
+  <script type="text/javascript">
+    var pos = 0;
+    var correct = 0;
+    var a,test, test_status, question, choice, choices, chA, chB, chC;
+    var tut;
+    var back_to_tutorial = 0;
+    var tutONOFF = 0;
+    var t_num = 2;
+    var set_question = "Match the sound to the corresponding spectrogram."
+    var num_questions = 100;
+    var image;
+    var array = new Array();
+    // Images
+
+
+    var answer;
+    var answers;
+
+    function get(x)
+    {
+      return document.getElementById(x);
+    }
+
+    function renderQuestion()
+    {
+      test = get("test");
+
+      answer = random(3);
+      makeArray();
+
+      if(pos >= num_questions)
+      {
+        test.innerHTML = "<h2>You got "+correct+" of "+num_questions+" questions correct</h2>";
+        get("test_status").innerHTML = "Great Job!";
+        // resets the variable to allow users to restart the test
+        pos = 0;
+        correct = 0;
+        // stops rest of renderQuestion function running when test is completed
+        return false;
+      }
+
+
+      get("test_status").innerHTML = "Question "+(pos+1)+" of "+ num_questions;
+      question = set_question;
+
+      test.innerHTML = "<h3>"+question+"</h3>";
+
+      test.innerHTML += "<button onclick='playSound(" +  (array[answer-1]) + ")'class='button'>PLAY SOUND</button><br><br>";
+
+      showImg();
+
+      pos++;
+
+
+    }
+
+
+    function makeArray()
+    {
+      var number;
+
+      for (var x = 0; x < 3; x++)
+      {
+        number = random(19);
+
+        for (var y = 0; y < x; y++)
+        {
+          if (number == array[x])
+          {
+            number = random(array[x] - 1);
+          }
+        }
+
+        array.push(number);
+      }
+
+    }
+
+    function random(range)
+    {
+       image = Math.floor((Math.random() * range) + 1);
+
+       return image;
+    }
+
+    function showImg()
+    {
+
+      test.innerHTML += "<div>"
+
+      for (var x = 0; x < 3; x++)
+      {
+
+        // += appending html file
+        test.innerHTML += "<a onclick='setTimeout(function(){checkAnswer(" + (x) + ");},1000);'>" +
+                          "<img id='" + array[x] + "' src='things/" + array[x] + ".png' width ='320' height='370'>" +
+                          "</a>"
+
+      }
+
+      test.innerHTML += "</div>"
+
+    }
+
+    function playSound(number)
+    {
+      var audio;
+
+      audio = new Audio('sounds/' + number + '.mp3');
+      audio.play();
+
+    }
+
+    function checkAnswer(number)
+    {
+      //window.alert("In CheckAnswer. image ID IS: " + image);
+      var image = get("" + array[number] + "");
+
+      test = get("test");
+
+      // checks if answer matches the correct choice
+      if(array[number] == array[answer-1])
+      {
+        correct++;
+        var audio = new Audio('sounds/good.ogg');
+        image.src = image.src.replace("things/" + array[number] + ".png", "good.png");
+        audio.play();
+      }
+      else
+      {
+        var audio = new Audio('sounds/bad.mp3');
+        image.src = image.src.replace("things/" +  array[number] + ".png", "bad.png");
+        audio.play();
+      }
+      // changes position of which question user is on
+      pos++;
+      // then the renderQuestion function runs again to go to next question ADD TIM
+      //renderQuestion();
+      array = new Array();
+      setTimeout(function() {renderQuestion();},2000);
+    }
+
+
+    window.addEventListener("load", renderQuestion, false);
+  </script>
+
+</head>
+
+    <body>
+      <h2 id="test_status"></h2>
+      <div id="test"></div>
+    </body>
+</html>
