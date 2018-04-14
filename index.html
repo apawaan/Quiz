@@ -1,4 +1,4 @@
-«»<html lang="en">
+<html lang="en">
 
 <head>
   <meta charset="utf-8"/>
@@ -156,7 +156,7 @@
       {
 
         // += appending html file
-        test.innerHTML += "<a onclick='setTimeout(function(){checkAnswer(" + (x) + ");},1000);'>" +
+        test.innerHTML += "<a onclick='setTimeout(function(){checkAnswer(" + (x) + ");},600);'>" +
                           "<img id='" + array[x] + "' src='things/" + array[x] + ".png' width ='320' height='370'>" +
                           "</a>"
 
@@ -201,7 +201,7 @@
       // then the renderQuestion function runs again to go to next question ADD TIM
       //renderQuestion();
       array = new Array();
-      setTimeout(function() {renderQuestion();},2000);
+      setTimeout(function() {renderQuestion();},550);
     }
 
 
