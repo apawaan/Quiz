@@ -6,11 +6,11 @@
 
   <style>
 
-    div img
+    div#img
     {
-      display: block;
-      margin-left: auto;
-      margin-right: auto;
+      display: inline-block;
+      margin: 0 auto;
+
     }
 
     div#test
@@ -21,6 +21,8 @@
       background-color:#E5FCE3;
       width:100vw
       height:100vh;
+      display: inline-block;
+      margin: 0 auto;
     }
 
     div#title, div#t1
@@ -124,7 +126,7 @@
     {
       var number;
 
-      for (var x = 0; x < 3; x++)
+      for (var x = 0; x < 4; x++)
       {
         number = random(19);
 
@@ -153,11 +155,11 @@
 
       //test.innerHTML += "<div>"
 
-      for (var x = 0; x < 3; x++)
+      for (var x = 0; x < 4; x++)
       {
 
         // += appending html file
-        test.innerHTML += "<div"
+        test.innerHTML += "<div id='img'>"
 
         test.innerHTML += " <a onclick='setTimeout(function(){checkAnswer(" + (x) + ");},600);'>" +
                           "<img id='" + array[x] + "' src='things/" + array[x] + ".png' width ='320' height='370'>" +
