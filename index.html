@@ -8,8 +8,10 @@
 
     div img
     {
-      position: inherit;
-      padding: inherit;
+      padding: 50px;
+      width:100vw
+      height:100vh;
+
     }
 
     div#test
@@ -18,7 +20,8 @@
       3px solid;
       padding:10px 40px 40px 40px;
       background-color:#E5FCE3;
-      width:95%;
+      width:100vw
+      height:100vh;
     }
 
     div#title, div#t1
@@ -149,19 +152,21 @@
     function showImg()
     {
 
-      test.innerHTML += "<div>"
+      //test.innerHTML += "<div>"
 
       for (var x = 0; x < 3; x++)
       {
 
         // += appending html file
-        test.innerHTML += "<a onclick='setTimeout(function(){checkAnswer(" + (x) + ");},600);'>" +
+        test.innerHTML += "<div"
+
+        test.innerHTML += " <a onclick='setTimeout(function(){checkAnswer(" + (x) + ");},600);'>" +
                           "<img id='" + array[x] + "' src='things/" + array[x] + ".png' width ='320' height='370'>" +
-                          "</a>"
+                          "</a> "
 
       }
 
-      test.innerHTML += "</div>"
+    test.innerHTML += "</div>"
 
     }
 
