@@ -77,7 +77,7 @@
     var num_questions = 100;
     var image;
     var array = new Array();
-    // Images
+    var threshold = ((screen.width)/320);
 
 
     var answer;
@@ -118,15 +118,20 @@
 
       pos++;
 
-
     }
-
 
     function makeArray()
     {
       var number;
 
-      for (var x = 0; x < 4; x++)
+      if (threshold % 2 != 0)
+      {
+        threshold = threshold - 0.5;
+      }
+
+      array = new Array();
+
+      for (var x = 0; x < threshold; x++)
       {
         number = random(19);
 
@@ -155,7 +160,7 @@
 
       //test.innerHTML += "<div>"
 
-      for (var x = 0; x < 4; x++)
+      for (var x = 0; x < threshold; x++)
       {
 
         // += appending html file
@@ -184,7 +189,7 @@
     {
       //window.alert("In CheckAnswer. image ID IS: " + image);
       var image = get("" + array[number] + "");
-
+      var status;
       test = get("test");
 
       // checks if answer matches the correct choice
@@ -194,19 +199,35 @@
         var audio = new Audio('sounds/good.ogg');
         image.src = image.src.replace("things/" + array[number] + ".png", "good.png");
         audio.play();
+        status = "good";
+
       }
       else
       {
         var audio = new Audio('sounds/bad.mp3');
         image.src = image.src.replace("things/" +  array[number] + ".png", "bad.png");
         audio.play();
+        status = "bad";
       }
+
       // changes position of which question user is on
       pos++;
       // then the renderQuestion function runs again to go to next question ADD TIM
       //renderQuestion();
-      array = new Array();
-      setTimeout(function() {renderQuestion();},550);
+      //setTimeout(function() {renderQuestion();},1000);
+      setTimeout(function() {replay(number, status);},700);
+    }
+
+    function replay(number, status)
+    {
+      var image = get("" + array[number] + "");
+
+      window.alert("number: " + number + " status: " + status);
+      window.alert("array[number]: " + array[number] + " img src: " + image.src);
+      image.src = image.src.replace(status + ".png", "things/" + array[number] + ".gif");
+      audio = new Audio('sounds/' + array[number] + '.mp3');
+      audio.play();
+      setTimeout(function() {renderQuestion();},7000);
     }
 
 
