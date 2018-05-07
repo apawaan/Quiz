@@ -221,9 +221,6 @@
     function replay(number, status)
     {
       var image = get("" + array[number] + "");
-
-      window.alert("number: " + number + " status: " + status);
-      window.alert("array[number]: " + array[number] + " img src: " + image.src);
       image.src = image.src.replace(status + ".png", "things/" + array[number] + ".gif");
       audio = new Audio('sounds/' + array[number] + '.mp3');
       audio.play();
